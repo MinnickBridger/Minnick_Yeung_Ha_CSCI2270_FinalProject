@@ -41,13 +41,13 @@ class GroceryStore
         void deleteItem(std::string title);
         void addItem(GroceryNode *root, int isle, std::string title, std::string category, int quantity);
         void addItemToHash(int isle, std::string title, std::string category, int quantity);
-        void findItem(std::string title);
+        void findItem(std::string title, std::string category);
     protected:
     private:
         void DeleteAll(GroceryNode * node); //use this for the post-order traversal deletion of the tree
         void printStoreInventory(GroceryNode * node);
         void countItems(GroceryNode *node, int *c);
-        GroceryNode* search(std::string title);
+        GroceryNode* search(GroceryNode *tmp, std::string title);
         GroceryNode* treeMinimum(GroceryNode *node);
         //GroceryNode *root;
         int hashSum(std::string x);

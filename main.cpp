@@ -55,11 +55,15 @@ int main()
             string itemName;
             cout << "Enter item name: " << endl;
             cin.ignore();
-            getline(cin,itemName);
-            //gs.findItem(itemName);
-        }else if(choice == 2){
-
+            getline(cin, itemName);
+            string itemCategory;
+            cout << "Enter the item category: " << endl;
+            getline(cin, itemCategory);
+            gs.findItem(itemName, itemCategory);
         }else if(choice == 3){
+            gs.printStoreInventory();
+
+        }else if(choice == 2){
             string word;
             cout<<"Enter a category: "<<endl;
             cin.ignore();

@@ -89,9 +89,35 @@ void GroceryStore::printStoreInventory(GroceryNode *node){
     if(node->leftChild!=NULL){
         printStoreInventory(node->leftChild);
     }
-    cout<<"Item: "<<node->title<<" "<<node->quantity<<endl;
+    cout<<"Item: "<<node->title<<", Quantity: "<<node->quantity<<endl;
     if(node->rightChild!=NULL){
         printStoreInventory(node->rightChild);
     }
 
+}
+void GroceryStore::printStoreInventory(){
+    for(int i = 0; i<6;i++){
+        printStoreInventory(hashTable[i]);
+    }
+}
+GroceryNode *GroceryStore::search(GroceryNode *node, string titles){
+    while(node!=NULL){
+        if(node->title>titles){
+            node = node->leftChild;
+        }else if(node->title<titles){
+            node = node->rightChild;
+        }else{
+            return node;
+        }
+    }
+}
+void GroceryStore::findItem(string title, string category){
+    int index = hashSum(category);
+    GroceryNode *tmp = hashTable[index];
+    if(tmp!=NULL && tmp->title == title){
+        cout<<"Item: "<<tmp->title<<", Isle: "<<tmp->isle<<", Category: "<<tmp->category<<", Quantity: "<<tmp->quantity<<endl;
+    }
+    else{
+        cout<<"Item not found, make sure it is the correct category"<<endl;
+    }
 }
