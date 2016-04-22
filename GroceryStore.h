@@ -38,10 +38,11 @@ class GroceryStore
         void printStoreInventory();
         void printItemsInCategory(std::string title);
         int countItems();
-        void deleteItem(std::string title);
+        void deleteItem(std::string title, std::string catergory);
         void addItem(GroceryNode *root, int isle, std::string title, std::string category, int quantity);
         void addItemToHash(int isle, std::string title, std::string category, int quantity);
         void findItem(std::string title, std::string category);
+        void removeQuantity(std::string title, std::string category);
     protected:
     private:
         void DeleteAll(GroceryNode * node); //use this for the post-order traversal deletion of the tree

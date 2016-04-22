@@ -1,11 +1,13 @@
 #include <iostream>
-#include <GroceryStore.h>
+#include "GroceryStore.h"
 
 using namespace std;
 
 int main()
 {
-
+    cout<<"Welcome to grocery store item inventory!"<<endl;
+    cout<<"To see the list of item categories, please press 6"<<endl;
+    cout<<" "<<endl;
     GroceryStore gs;
     int n = 0;
     string line;
@@ -26,6 +28,7 @@ int main()
                     counter++;
                 }else if(counter == 1){
                     title = word;
+                    //cout<<word<<endl;
                     counter++;
                 }else if(counter == 2){
                     category = word;
@@ -41,14 +44,16 @@ int main()
     }else{
         cout<<"Didnt open"<<endl;
     }
-    while(n!=6){
+    while(n!=8){
         cout << "======Main Menu======" << endl;
         cout << "1. Find an item" << endl;
         cout << "2. Print items in a category" << endl;
         cout << "3. Print the inventory" << endl;
-        cout << "4. Delete an item" << endl;
+        cout << "4. Remove one item from the inventory" << endl;
         cout << "5. Count the items" << endl;
-        cout << "6. Quit" << endl;
+        cout << "6. List the categories"<<endl;
+        cout << "7. Remove all of the available inventory of an item"<<endl;
+        cout << "8. Quit" << endl;
         int choice;
         cin>>choice;
         if(choice == 1){
@@ -69,19 +74,36 @@ int main()
             cin.ignore();
             getline(cin,word);
             gs.printItemsInCategory(word);
-        }else if(choice == 6){
+        }else if(choice == 8){
             cout << "Goodbye!" << endl;
-            n = 6;
+            n = 8;
         }else if(choice == 4){
             string deleteNode;
             cout << "Enter item: " << endl;
             cin.ignore();
             getline(cin, deleteNode);
-            //gs.deleteItem(deleteNode);
+            string cat;
+            cout<<"Enter the item category: "<<endl;
+            getline(cin, cat);
+            gs.removeQuantity(deleteNode, cat);
 
 
         }else if(choice == 5){
             //cout<<"Tree contains: "<<gs.countItems()<<" items."<< endl;
+        }else if(choice == 6){
+            cout<<"Item categories: Produce, Meat, Condiment, Grains, Dairy and other."<<endl;
+        }else if(choice == 7){
+            string deleteNode;
+            cout << "Enter item: " << endl;
+            cin.ignore();
+            getline(cin, deleteNode);
+            string cat;
+            cout<<"Enter the item category: "<<endl;
+            getline(cin, cat);
+            gs.deleteItem(deleteNode, cat);
+
+        }else{
+            cout<<"Please enter the number to one of the options below"<<endl;
         }
 
     }
