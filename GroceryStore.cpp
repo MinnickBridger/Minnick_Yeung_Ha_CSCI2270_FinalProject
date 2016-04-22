@@ -42,7 +42,7 @@ void GroceryStore::addItemToHash(int isle, string title, string category, int qu
         hashElement->rightChild = NULL;
         hashElement->parent = NULL;
         hashTable[index] = hashElement;
-        //cout<<"First Time being added to index "<<hashTable[index]->title<<endl;
+        cout<<"First Time being added to index "<<hashTable[index]->title<<endl;
     }
     else{
         addItem(hashTable[index],isle, title, category, quantity);
@@ -73,7 +73,7 @@ void GroceryStore::addItem(GroceryNode *root, int isle, string title, string cat
         parent->rightChild = node;
         node->parent = parent;
     }
-    //cout<<"Being added in tree: "<<node->title<<" Parent: "<<node->parent->title<<endl;
+    cout<<"Being added in tree: "<<node->title<<" Parent: "<<node->parent->title<<endl;
 }
 void GroceryStore::printItemsInCategory(string category){
     GroceryNode *tmp;
@@ -98,7 +98,7 @@ void GroceryStore::printStoreInventory(GroceryNode *node){
 
 }
 void GroceryStore::printStoreInventory(){
-    for(int i = 0; i<=6;i++){
+    for(int i = 0; i<6;i++){
         printStoreInventory(hashTable[i]);
     }
 }
@@ -134,34 +134,64 @@ void GroceryStore::deleteItem(string title, string category){
     int index = hashSum(category);
     GroceryNode *node;
     GroceryNode *root = hashTable[index];
+
+    if(hashTable[index]->rightChild==NULL){
+        cout<<"Hit"<<endl;
+    }
     node = search(hashTable[index], title);
     if(node!=NULL){
-    if(node != root){
         if(node->leftChild == NULL && node->rightChild == NULL){
             //No Child
-            if(node->parent->leftChild==node){
-                node->parent->leftChild = NULL;
-            }else{
-                node->parent->rightChild = NULL;
+            if(node->parent!=NULL){
+                if(node->parent->leftChild==node){
+                    node->parent->leftChild = NULL;
+                }else{
+                    node->parent->rightChild = NULL;
+                }
             }
+            node=NULL;
         }else if(node->leftChild != NULL && node->rightChild != NULL){
             //Two Children
             GroceryNode *minn;
             minn = treeMinimum(node->rightChild);
             if(minn == node->rightChild){
-                node->parent->leftChild = minn;
-                minn->parent = node->parent;
                 node->leftChild->parent = minn;
                 minn->leftChild = node->leftChild;
+                if(node->parent!=NULL){
+                    if(node->parent->leftChild == node){
+                        node->parent->leftChild = minn;
+
+                    }else{
+                        node->parent->rightChild = minn;
+                    }
+                }
+                minn->parent = node->parent;
+                if(node->parent==NULL){
+                    hashTable[index]=minn;
+                }
+                //node->parent->leftChild = minn;
+                //minn->parent = node->parent;
+                //node->leftChild->parent = minn;
+                //minn->leftChild = node->leftChild;
             }else{
                 minn->parent->leftChild = minn->rightChild;
                 minn->rightChild->parent = minn->parent;
+                if(node->parent!=NULL){
+                    if(node->parent->leftChild == node){
+                        node->parent->leftChild=minn;
+                    }else{
+                        node->parent->rightChild=minn;
+                    }
+                }
                 minn->parent = node->parent;
-                node->parent->leftChild = minn;
+                //node->parent->leftChild = minn;
                 minn->leftChild = node->leftChild;
                 minn->rightChild = node->rightChild;
                 node->rightChild->parent = minn;
                 node->leftChild->parent = minn;
+                if(node->parent==NULL){
+                    hashTable[index]=minn;
+                }
 
             }
 
@@ -169,64 +199,38 @@ void GroceryStore::deleteItem(string title, string category){
             //One Child
             if(node->leftChild==NULL){
                 GroceryNode *x = node->rightChild;
-                if(node->parent->leftChild == node){
-                    node->parent->leftChild = x;
-                }else{
-                    node->parent->rightChild = x;
+                if(node->parent!=NULL){
+                    if(node->parent->leftChild == node){
+                        node->parent->leftChild = x;
+                    }else{
+                        node->parent->rightChild = x;
+                    }
                 }
-
                 x->parent = node->parent;
+                if(node->parent==NULL){
+                    hashTable[index]=x;
+                }
             }else if(node->rightChild == NULL){
-                 GroceryNode *x = node->leftChild;
-                if(node->parent->leftChild == node){
-                    node->parent->leftChild = x;
-                }else{
-                    node->parent->rightChild = x;
+                GroceryNode *x = node->leftChild;
+                if(node->parent!=NULL){
+                    if(node->parent->leftChild == node){
+                        node->parent->leftChild = x;
+                    }else{
+                        node->parent->rightChild = x;
+                    }
                 }
-
                 x->parent = node->parent;
+                if(node->parent==NULL){
+                    hashTable[index]=x;
+                }
             }
         }
-    delete node;
-    }else{
-        //THIS ELSE IF FOR DELETING THE ROOT
-        cout<<"inside of else"<<endl;
-        GroceryNode *walker = root->rightChild;
-        GroceryNode *temp = walker->leftChild;
-        while(temp != NULL){
-            walker = temp;
-            temp = temp->leftChild;
-        }
-        if(walker->parent == root){
-            if(walker->rightChild != NULL){
-                walker->parent->rightChild = walker->rightChild;
-                walker->rightChild->parent = walker->parent;
-            }else {
-                walker->parent->rightChild = NULL;
-                walker->parent = NULL; }
-        }else {
-            if(walker->rightChild != NULL){
-            walker->parent->leftChild = walker->rightChild;
-            walker->rightChild->parent = walker->parent;
-            }else {
-                walker->parent->leftChild = NULL;
-                walker->parent = NULL;
-            }
-        }
-        walker->leftChild = root->leftChild; walker->rightChild=root->rightChild;
-        if(walker->leftChild != NULL){
-           walker->leftChild->parent = walker;
-        }
-        if(walker->rightChild != NULL){
-           walker->rightChild->parent = walker;
-        }
-        delete root;
-        //root = walker;
 
+    delete node;
     }
     //delete node;
-    }else{
-        cout << "Movie not found." << endl;
+    else{
+        cout << "Item not found." << endl;
     }
 }
 void GroceryStore::removeQuantity(string title, string category){
