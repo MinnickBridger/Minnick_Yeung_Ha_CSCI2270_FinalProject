@@ -30,7 +30,7 @@ int GroceryStore::hashSum(string words){
         return 5;
     }
 }
-void GroceryStore::addItemToHash(int isle, string title, string category, int quantity){
+void GroceryStore::addItemToHash(int isle, string title, string category, int quantity,float price){
     int index = hashSum(category);
     if(hashTable[index] == NULL){
         GroceryNode *hashElement = new GroceryNode;
@@ -41,18 +41,19 @@ void GroceryStore::addItemToHash(int isle, string title, string category, int qu
         hashElement->leftChild = NULL;
         hashElement->rightChild = NULL;
         hashElement->parent = NULL;
+        hashElement->price = price;
         hashTable[index] = hashElement;
-        cout<<"First Time being added to index "<<hashTable[index]->title<<endl;
+        //cout<<"First Time being added to index "<<hashTable[index]->title<<endl;
     }
     else{
-        addItem(hashTable[index],isle, title, category, quantity);
+        addItem(hashTable[index],isle, title, category, quantity, price);
     }
 
 }
-void GroceryStore::addItem(GroceryNode *root, int isle, string title, string category, int quantity){
+void GroceryStore::addItem(GroceryNode *root, int isle, string title, string category, int quantity,float price){
     GroceryNode *tmp = root;
     GroceryNode *parent = NULL;
-    GroceryNode *node = new GroceryNode(isle, title, category, quantity);
+    GroceryNode *node = new GroceryNode(isle, title, category, quantity,price);
     node->leftChild = NULL;
     node->rightChild = NULL;
     //node->parent = NULL;
@@ -73,7 +74,7 @@ void GroceryStore::addItem(GroceryNode *root, int isle, string title, string cat
         parent->rightChild = node;
         node->parent = parent;
     }
-    cout<<"Being added in tree: "<<node->title<<" Parent: "<<node->parent->title<<endl;
+    //cout<<"Being added in tree: "<<node->title<<" Parent: "<<node->parent->title<<endl;
 }
 void GroceryStore::printItemsInCategory(string category){
     GroceryNode *tmp;
@@ -123,6 +124,7 @@ void GroceryStore::findItem(string title, string category){
         cout<<"Item not found, make sure it is the correct category"<<endl;
     }
 }
+
 GroceryNode* GroceryStore::treeMinimum(GroceryNode *node){
     //node = node->rightChild;
     while(node->leftChild!=NULL){
@@ -134,10 +136,6 @@ void GroceryStore::deleteItem(string title, string category){
     int index = hashSum(category);
     GroceryNode *node;
     GroceryNode *root = hashTable[index];
-
-    if(hashTable[index]->rightChild==NULL){
-        cout<<"Hit"<<endl;
-    }
     node = search(hashTable[index], title);
     if(node!=NULL){
         if(node->leftChild == NULL && node->rightChild == NULL){
@@ -254,5 +252,48 @@ void GroceryStore::removeQuantity(string title, string category){
         }
     }else{
         cout << "Item not found." << endl;
+    }
+}
+
+void GroceryStore::addToCart(string title, string category){
+    int index = hashSum(category);
+    GroceryNode *tmp = search(hashTable[index], title);
+    if(tmp!=NULL && tmp->title == title){
+        cart.push_back(title);
+        cartCost = cartCost + tmp -> price;
+    }
+    else{
+        cout<<"Item not found, make sure it is the correct category"<<endl;
+    }
+}
+
+/*void GroceryStore::findItem(string title, string category){
+    int index = hashSum(category);
+    GroceryNode *tmp = search(hashTable[index], title);
+    if(tmp!=NULL && tmp->title == title){
+        cout<<"Item: "<<tmp->title<<", Isle: "<<tmp->isle<<", Category: "<<tmp->category<<", Quantity: "<<tmp->quantity<<endl;
+    }
+    else{
+        cout<<"Item not found, make sure it is the correct category"<<endl;
+    }
+}*/
+
+void GroceryStore::clearCart()
+{
+    cartCost = 0;
+    cart.clear();
+}
+void GroceryStore::viewCart(){
+    if(cart.size() != 0)
+    {
+        cout<<"Items in cart:"<<endl;
+        for(int x = 0; x< cart.size();x++)
+        {
+            cout<<cart[x]<<endl;
+        }
+        cout<<"Total price: " <<cartCost<<" dollars"<<endl;
+    }
+    else{
+        cout<<"Empty"<<endl;
     }
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "GroceryStore.h"
+#include <string>
 
 using namespace std;
 
@@ -15,6 +16,9 @@ int main()
     string category;
     int quantity;
     int isle;
+    string cartTitle;
+    string cartCategory;
+    float price;
     string title;
     ifstream inFile;
     inFile.open("finalGrocery.txt");
@@ -28,6 +32,7 @@ int main()
                     counter++;
                 }else if(counter == 1){
                     title = word;
+
                     //cout<<word<<endl;
                     counter++;
                 }else if(counter == 2){
@@ -35,16 +40,19 @@ int main()
                     counter++;
                 }else if(counter == 3){
                     quantity = atoi(word.c_str());
+                    counter++;
+                }else if(counter == 4){
+                    price = atoi(word.c_str());
                 }
                 //cout<<word<<endl;
             }
             counter = 0;
-            gs.addItemToHash(isle, title, category, quantity);
+            gs.addItemToHash(isle, title, category, quantity, price);
         }
     }else{
         cout<<"Didnt open"<<endl;
     }
-    while(n!=8){
+    while(n!=11){
         cout << "======Main Menu======" << endl;
         cout << "1. Find an item" << endl;
         cout << "2. Print items in a category" << endl;
@@ -53,7 +61,10 @@ int main()
         cout << "5. Count the items" << endl;
         cout << "6. List the categories"<<endl;
         cout << "7. Remove all of the available inventory of an item"<<endl;
-        cout << "8. Quit" << endl;
+        cout << "8. Add item to Cart" << endl;
+        cout << "9. Print Cart Contents"<<endl;
+        cout <<"10. Clear Cart"<<endl;
+        cout <<"11. Quit"<<endl;
         int choice;
         cin>>choice;
         if(choice == 1){
@@ -74,9 +85,9 @@ int main()
             cin.ignore();
             getline(cin,word);
             gs.printItemsInCategory(word);
-        }else if(choice == 8){
+        }else if(choice == 11){
             cout << "Goodbye!" << endl;
-            n = 8;
+            n = 11;
         }else if(choice == 4){
             string deleteNode;
             cout << "Enter item: " << endl;
@@ -102,7 +113,22 @@ int main()
             getline(cin, cat);
             gs.deleteItem(deleteNode, cat);
 
-        }else{
+        }else if(choice == 8){
+            cout<<"Enter Item you would like to add to your cart:"<<endl;
+            cin.ignore();
+            getline(cin, cartTitle);
+            cout<<"What category is it in?:"<<endl;
+            cout<<"Reminder: Item categories: Produce, Meat, Condiment, Grains, Dairy and other."<<endl;
+
+            getline(cin,cartCategory);
+            gs.addToCart(cartTitle,cartCategory);
+        }else if(choice == 9){
+            gs.viewCart();
+        }
+        else if(choice ==10){
+            gs.clearCart();
+        }
+        else{
             cout<<"Please enter the number to one of the options below"<<endl;
         }
 

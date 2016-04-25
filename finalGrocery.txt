@@ -1,0 +1,20 @@
+1,Cheese,Dairy,45,3.45
+1,Milk,Dairy,34,2.56
+1,Eggs,Other,12,1.99
+2,Bread,Grains,90,2.49
+3,Tomato,Produce,34,.50
+3,Lettuce,Produce,56,.20
+3,Onion,Produce,10,.45
+4,Turkey,Meat,2,3.00
+4,Ham,Meat,4,2.89
+4,Chicken,Meat,6,4.99
+4,Pork,Meat,20,3.99
+4,Beef,Meat,12,6.79
+2,Tortillas,Grains,1,2.99
+1,Yogurt,Dairy,10,1.99
+1,Butter,Dairy,10,1.50
+3,Corn,Produce,5,.99
+5,Ketchup,Condiment,5,.99
+5,Ranch Dressing,Condiment,5,1.99
+5,Mustard,Condiment,6,1.45
+4,Salmon,Meat,7,6.99
