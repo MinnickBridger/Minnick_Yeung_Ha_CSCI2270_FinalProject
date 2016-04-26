@@ -16,9 +16,6 @@ A menu will appear and display different options, which will ask for the
 user to enter a number which corresponds to a menu option. The user can select
 any option however many times they wish. The program does read in a text file
 titled finalGrocery.txt without that the program will not run
-It is a command line arguement here is the lines that run it in the terminal, given the files are in the same location.
-g++ -std=c++11 -o groceryStore main.cpp GroceryStore.cpp 
-./groceryStore finalGrocery.txt
 
 Dependencies:
 There is none other than the finalGrocery.txt file that the program needs to
