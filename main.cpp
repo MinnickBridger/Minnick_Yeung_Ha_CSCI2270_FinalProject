@@ -1,3 +1,8 @@
+/*
+Final Project
+Authors: Bridger, Eric, Syrus
+CSCI 2270
+*/
 #include <iostream>
 #include "GroceryStore.h"
 #include <string>
@@ -42,7 +47,7 @@ int main()
                     quantity = atoi(word.c_str());
                     counter++;
                 }else if(counter == 4){
-                    price = atoi(word.c_str());
+                    price = std::stof(word.c_str());
                 }
                 //cout<<word<<endl;
             }

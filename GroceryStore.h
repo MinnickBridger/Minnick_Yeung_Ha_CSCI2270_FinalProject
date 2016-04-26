@@ -1,3 +1,8 @@
+/*
+Final Project
+Authors: Bridger, Eric, Syrus
+CSCI 2270
+*/
 #ifndef GROCERYSTORE_H
 #define GROCERYSTORE_H
 #include <iostream>

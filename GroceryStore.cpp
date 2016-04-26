@@ -1,3 +1,8 @@
+/*
+Final Project
+Authors: Bridger, Eric, Syrus
+CSCI 2270
+*/
 #include "GroceryStore.h"
 #include <iostream>
 using namespace std;
@@ -118,7 +123,7 @@ void GroceryStore::findItem(string title, string category){
     int index = hashSum(category);
     GroceryNode *tmp = search(hashTable[index], title);
     if(tmp!=NULL && tmp->title == title){
-        cout<<"Item: "<<tmp->title<<", Isle: "<<tmp->isle<<", Category: "<<tmp->category<<", Quantity: "<<tmp->quantity<<endl;
+        cout<<"Item: "<<tmp->title<<", Isle: "<<tmp->isle<<", Category: "<<tmp->category<<", Quantity: "<<tmp->quantity<<", Price: "<<tmp->price<<endl;
     }
     else{
         cout<<"Item not found, make sure it is the correct category"<<endl;
