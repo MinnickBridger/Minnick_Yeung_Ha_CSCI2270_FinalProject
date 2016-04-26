@@ -9,7 +9,7 @@ CSCI 2270
 
 using namespace std;
 
-int main()
+int main(int argc, char*argv[])
 {
     cout<<"Welcome to grocery store item inventory!"<<endl;
     cout<<"To see the list of item categories, please press 6"<<endl;
@@ -25,8 +25,9 @@ int main()
     string cartCategory;
     float price;
     string title;
-    ifstream inFile;
-    inFile.open("finalGrocery.txt");
+    ifstream inFile(argv[1]);
+    //ifstream inFile;
+    //inFile.open("finalGrocery.txt");
     int counter = 0;
     if(inFile.good()){
         while(getline(inFile,line)){
@@ -57,6 +58,7 @@ int main()
     }else{
         cout<<"Didnt open"<<endl;
     }
+    inFile.close();
     while(n!=11){
         cout << "======Main Menu======" << endl;
         cout << "1. Find an item" << endl;
