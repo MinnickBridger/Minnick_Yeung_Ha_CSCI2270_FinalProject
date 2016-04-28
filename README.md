@@ -22,6 +22,7 @@ next run this line: ./groceryStore finalGrocery.txt
 if you run into problems try doing the first line again but change groceryStore to something else of your choice for example:
 g++ -std=c++11 -o Stores main.cpp GroceryStore.cpp 
 ./Stores finalGrocery.txt
+
 Dependencies:
 There is none other than the finalGrocery.txt file that the program needs to
 read in. Also if an error is thrown on line 50 in main about the stof go
