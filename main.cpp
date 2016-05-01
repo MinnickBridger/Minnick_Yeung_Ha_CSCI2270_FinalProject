@@ -59,6 +59,7 @@ int main(int argc, char*argv[])
         cout<<"Didnt open"<<endl;
     }
     inFile.close();
+    string choice;
     while(n!=11){
         cout << "======Main Menu======" << endl;
         cout << "1. Find an item" << endl;
@@ -72,9 +73,8 @@ int main(int argc, char*argv[])
         cout << "9. Print Cart Contents"<<endl;
         cout <<"10. Clear Cart"<<endl;
         cout <<"11. Quit"<<endl;
-        int choice;
         cin>>choice;
-        if(choice == 1){
+        if(choice == "1"){
             string itemName;
             cout << "Enter item name: " << endl;
             cin.ignore();
@@ -83,19 +83,19 @@ int main(int argc, char*argv[])
             cout << "Enter the item category: " << endl;
             getline(cin, itemCategory);
             gs.findItem(itemName, itemCategory);
-        }else if(choice == 3){
+        }else if(choice == "3"){
             gs.printStoreInventory();
 
-        }else if(choice == 2){
+        }else if(choice == "2"){
             string word;
             cout<<"Enter a category: "<<endl;
             cin.ignore();
             getline(cin,word);
             gs.printItemsInCategory(word);
-        }else if(choice == 11){
+        }else if(choice == "11"){
             cout << "Goodbye!" << endl;
             n = 11;
-        }else if(choice == 4){
+        }else if(choice == "4"){
             string deleteNode;
             cout << "Enter item: " << endl;
             cin.ignore();
@@ -106,11 +106,11 @@ int main(int argc, char*argv[])
             gs.removeQuantity(deleteNode, cat);
 
 
-        }else if(choice == 5){
+        }else if(choice == "5"){
             //cout<<"Tree contains: "<<gs.countItems()<<" items."<< endl;
-        }else if(choice == 6){
+        }else if(choice == "6"){
             cout<<"Item categories: Produce, Meat, Condiment, Grains, Dairy and other."<<endl;
-        }else if(choice == 7){
+        }else if(choice == "7"){
             string deleteNode;
             cout << "Enter item: " << endl;
             cin.ignore();
@@ -120,7 +120,7 @@ int main(int argc, char*argv[])
             getline(cin, cat);
             gs.deleteItem(deleteNode, cat);
 
-        }else if(choice == 8){
+        }else if(choice == "8"){
             cout<<"Enter Item you would like to add to your cart:"<<endl;
             cin.ignore();
             getline(cin, cartTitle);
@@ -129,10 +129,10 @@ int main(int argc, char*argv[])
 
             getline(cin,cartCategory);
             gs.addToCart(cartTitle,cartCategory);
-        }else if(choice == 9){
+        }else if(choice == "9"){
             gs.viewCart();
         }
-        else if(choice ==10){
+        else if(choice == "10"){
             gs.clearCart();
         }
         else{
