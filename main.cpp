@@ -79,10 +79,10 @@ int main(int argc, char*argv[])
             cout << "Enter item name: " << endl;
             cin.ignore();
             getline(cin, itemName);
-            string itemCategory;
-            cout << "Enter the item category: " << endl;
-            getline(cin, itemCategory);
-            gs.findItem(itemName, itemCategory);
+//            string itemCategory;
+//            cout << "Enter the item category: " << endl;
+//            getline(cin, itemCategory);
+            gs.findItem(itemName);
         }else if(choice == 3){
             gs.printStoreInventory();
 

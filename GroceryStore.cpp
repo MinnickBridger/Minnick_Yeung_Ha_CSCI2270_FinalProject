@@ -119,15 +119,22 @@ GroceryNode *GroceryStore::search(GroceryNode *node, string titles){
         }
     }
 }
-void GroceryStore::findItem(string title, string category){
-    int index = hashSum(category);
-    GroceryNode *tmp = search(hashTable[index], title);
-    if(tmp!=NULL && tmp->title == title){
-        cout<<"Item: "<<tmp->title<<", Isle: "<<tmp->isle<<", Category: "<<tmp->category<<", Quantity: "<<tmp->quantity<<", Price: "<<tmp->price<<endl;
-    }
-    else{
-        cout<<"Item not found, make sure it is the correct category"<<endl;
-    }
+
+
+void GroceryStore::findItem(string title){
+	bool found=false;
+	for (int i=0;i<tableSize;i++){
+		GroceryNode *tmp = search(hashTable[i], title);
+		 if(tmp!=NULL && tmp->title == title){
+			 found=true;
+			 cout<<"Item: "<<tmp->title<<", Isle: "<<tmp->isle<<", Category: "<<tmp->category<<", Quantity: "<<tmp->quantity<<", Price: "<<tmp->price<<endl;
+			 return;
+		 }
+	}
+	if (!found){
+		cout<<"Item not found."<<endl;
+	}
+
 }
 
 GroceryNode* GroceryStore::treeMinimum(GroceryNode *node){
