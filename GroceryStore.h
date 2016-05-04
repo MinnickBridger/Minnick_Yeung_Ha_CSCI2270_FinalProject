@@ -48,7 +48,8 @@ class GroceryStore
         void deleteItem(std::string title, std::string catergory);
         void addItem(GroceryNode *root, int isle, std::string title, std::string category, int quantity,float price);
         void addItemToHash(int isle, std::string title, std::string category, int quantity,float price);
-        void findItem(std::string title, std::string category);
+        //void findItem(std::string title, std::string category);
+        void findItem(std::string title);
         void removeQuantity(std::string title, std::string category);
         void addToCart(std::string title, std::string category);
         void viewCart();
